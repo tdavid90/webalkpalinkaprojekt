@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Spirit List</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel-group">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h1 class="panel-title" th:text="${spirit.type}">Az adott ital</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                              <h4>Minőség ellenőrök:</h4>
+                            </div>
+                                <div class="col-md-9">
+                                    <ul>
+                                        <li th:remove="all">egy</li>
+                                        <li th:remove="all">kettő</li>
+                                        <li th:each="qualityChecker : ${spirit.qualityCheckers}" th:text="${qualityChecker.getFirstName()}">három</li>
+                                    </ul>
+                                </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h4>Alkohol százalék:</h4>
+                            </div>
+                            <div class="col-md-3">
+                                <p th:text="${spirit.percentageOfAlcohol}">51</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h4>Minőség:</h4>
+                            </div>
+                            <div class="col-md-3">
+                                <p th:text="${spirit.quality}">Kiváló</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h4>Főzés helyszíne:</h4>
+                            </div>
+                            <div class="col-md-3">
+                                <p th:text="${spirit.brewLocation}">Nyíregyháza</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h4>Mennyiség:</h4>
+                            </div>
+                            <div class="col-md-3">
+                                <p th:text="${spirit.quantity}">60 liter</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-9">
+                                <h2 class="panel-title">Felhasznált alapanyagok:</h2>
+                            </div>
+                            <div class="col-md-2">
+                                <a class="btn btn-success" href="#" th:href="@{'/spirit/' + ${spirit.id} + '/usedresources'}" role="button">Details</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul>
+                                    <li th:remove="all">Cefre</li>
+                                    <li th:remove="all">Fahéj</li>
+                                    <li th:each="usedResources : ${spirit.usedResources}" th:text="${(usedResources.getAmountOfResource() +
+                                      ' ' +
+                                      usedResources.getTypeOfResouce() +
+                                      '(' +
+                                      usedResources.companyOfCreation.getCompanyName() +
+                                       ')')}">Hegyi forrásvíz</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h2 class="panel-title">Hosszú leírása a főzés menetének:</h2>
+                    </div>
+                    <div class="panel panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p th:text="${spirit.brewProcess.getSpiritBrewProcess()}">Egy egy hosszú leírás. Rengeteg szöveggel.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="btn btn-danger" href="#" th:href="@{/}" role="button">Vissza</a>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

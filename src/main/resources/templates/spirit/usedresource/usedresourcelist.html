@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Felhasznált nyersanyagok listája</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<!--/*@thymesVar id="spirit" type="takacs23.webalk.models.Spirit"*/-->
+<!--/*@thymesVar id="usedResource" type="takacs23.webalk.commands.UsedResourceCommand"*/-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h2 class="panel-title">Felhasznált alapanyagok</h2>
+                </div>
+                <div class="panel-body">
+                    <div class="table-responsive" th:if="${not #lists.isEmpty(spirit.usedResource)}">
+                        <table class="table table-hover">
+                            <thead class="thead-inverse">
+                            <tr>
+                                <th>ID</th>
+                                <th>Típus</th>
+                                <th>Mennyiség</th>
+                                <th>Cég</th>
+                                <th>Show</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                            </tr>
+                            <tr th:each="usedResource : ${spirit.usedResource}">
+                                <td th:text="${usedResource.id}"></td>
+                                <td th:text="${usedResource.typeOfResource}"></td>
+                                <td th:text="${usedResource.amountOfResource}"></td>
+                                <td th:text="${usedResource.companyOfCreation.getCompanyName()}"></td>
+                                <td><a href="#" th:href="@{'/spirit/' + ${spirit.id} + '/usedresource/' + ${usedResource.id} + '/show'}">Show</a></td>
+                                <td><a href="#" th:href="@{'/spirit/' + ${spirit.id} + '/usedresource/' + ${usedResource.id} + '/update'}">Update</a></td>
+                                <td><a href="#" th:href="@{'/spirit/' + ${spirit.id} + '/usedresource/' + ${usedResource.id} + '/delete'}">Delete</a></td>
+                            </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <a class="btn btn-success" href="#" th:href="@{'/spirit/' + ${spirit.id} + '/usedresource/new'}" role="button">Hozzáadás</a>
+            <a class="btn btn-danger" href="#" th:href="@{'/spirit/' + ${spirit.id} + '/showspirits'}" role="button">Vissza</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

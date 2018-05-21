@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Form to post</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+<!--/*@thymesVar id="spirit" type="takacs23.webalk.models.Spirit"*/-->
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form th:object="${spirit}" th:action="@{/spirit/}">
+                <div th:if="${#fields.hasErrors('*')}" class="alert alert-danger">
+                    <p>Errors found in validation</p>
+                </div>
+                <input type="hidden" th:field="*{id}"/>
+                <div class="panel-group">
+                    <div class="panel panel-primary">
+                        <div class="panel panel-heading">
+                            <h2 class="panel-title">Ital adattagok</h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-3 form-group" th:class="${#fields.hasErrors('type')}
+                                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+                                    <label>Ital típusa:</label>
+                                    <input type="text" class="form-control" th:field="*{type}" th:errorclass="has-error"/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('type')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('type')}" th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <label>Minőség ellenőrök:</label>
+                                </div>
+                                <div class="col-md-9 form-group">
+                                    <div class="radio">
+                                        <label>
+                                            <input type="checkbox" value="" />
+                                            Dummy1
+                                        </label>
+                                    </div>
+                                    <div class="radio" th:remove="all">
+                                        <label>
+                                            <input type="checkbox" value="" />
+                                            Dummy2
+                                        </label>
+                                    </div>
+                                    <div class="radio" th:remove="all">
+                                        <label>
+                                            <input type="checkbox" value="" />
+                                            Dummy3
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 form-group" th:class="${#fields.hasErrors('description')}
+                                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+                                    <label>Leírás:</label>
+                                    <input type="text" class="form-control" th:field="*{description}" th:errorclass="has-error" />
+                                    <span class="help-block" th:if="${#fields.hasErrors('description')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('description')}" th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                </div>
+                                </div>
+                            <div class="row">
+                                <div class="col-md-3 form-group" th:class="${#fields.hasErrors('percentageOfAlcohol')}
+                                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+                                    <label>Alkohol százalék:</label>
+                                    <input type="text" class="form-control" th:field="*{percentageOfAlcohol}" th:errorclass="has-error" />
+                                    <span class="help-block" th:if="${#fields.hasErrors('percentageOfAlcohol')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('percentageOfAlcohol')}" th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                </div>
+                                <div class="col-md-3 form-group" th:class="${#fields.hasErrors('quantity')}
+                                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+                                    <label>Mennyiség:</label>
+                                    <input type="text" class="form-control" th:field="*{quantity}" th:errorclass="has-error" />
+                                    <span class="help-block" th:if="${#fields.hasErrors('quantity')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('quantity')}" th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                </div>
+                                <div class="col-md-3 form-group" th:class="${#fields.hasErrors('brewLocation')}
+                                ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
+                                    <label>Kifőzés helyszíne:</label>
+                                    <input type="text" class="form-control" th:field="*{brewLocation}" th:errorclass="has-error"/>
+                                    <span class="help-block" th:if="${#fields.hasErrors('brewLocation')}">
+                                        <ul>
+                                            <li th:each="err : ${#fields.errors('brewLocation')}" th:text="${err}"/>
+                                        </ul>
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <label>Minőség:</label>
+                                    <select class="form-control" th:field="*{quality}">
+                                        <option th:each="qualityValue : ${T(takacs23.webalk.models.Quality).values()}"
+                                                th:value="${qualityValue.name()}"
+                                                th:text="${qualityValue.name()}"></option>
+                                    </select>
+                                        <select class="form-control" th:remove="all">
+                                            <option>Nagyon rossz</option>
+                                            <option>Rossz</option>
+                                            <option>Átlagos</option>
+                                            <option>Jó</option>
+                                            <option>Nagyon jó</option>
+                                            <option>Kiváló</option>
+                                        </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <div class="row">
+                                <div class="col-md-10">
+                                    <h2 class="panel-title">Felhasznált nyersanyagok:</h2>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <ul>
+                                        <li th:remove="all">Dummy4</li>
+                                        <li th:remove="all">Dummy5</li>
+                                        <li th:each="usedResource : ${spirit.usedResource}"
+                                            th:text="${usedResource.typeOfResource}">Dummy6</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Főzés folyamatának leírása:</h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-12 form-group">
+                                    <textarea class="form-control" rows="5" th:field="*{brewProcess.spiritBrewProcess}">
+                                        Ez egy hosszú leírása a pálinkafőzésnek!
+                                        Ráadásul több soros leírása!
+                                    </textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Mehet!</button>
+                    <a class="btn btn-danger" href="#" th:href="@{/}" role="button">Vissza</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</body>
+</html>

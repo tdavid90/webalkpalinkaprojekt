@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Felhasznált alapanyagok</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <form th:object="${usedResource}" th:action="@{'/spirit/' + ${usedResource.getSpiritId()} + '/usedresource'}" method="post">
+                <input type="hidden" th:field="*{id}"/>
+                <div class="panel-group">
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">
+                            <h2 class="panel-title">Felhasznált alapanyagok módosítása</h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="row">
+                                <div class="col-md-3 form-group">
+                                    <label>Típus:</label>
+                                    <input type="text" class="form-control" th:field="*{typeOfResource}"/>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Mennyiség:</label>
+                                    <input type="number" class="form-control" th:field="*{amountOfResource}"/>
+                                </div>
+                                <div class="col-md-3 form-group">
+                                    <label>Cég:</label>
+                                    <select class="form-control" name="companyOfCreation.id">
+                                        <option th:each="companyOfCreationEach : ${companyOfCreationList}"
+                                                th:value="${companyOfCreationEach.id}"
+                                                th:selected="${companyOfCreationEach.id.equals(usedResource.companyOfCreation.id)}"
+                                                th:text="${companyOfCreationEach.companyName}"></option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Mehet!</button>
+                    <a class="btn btn-danger" href="#" th:href="@{'/spirit/' + ${usedResource.getSpiritId()} + '/usedresources'}" role="button">Vissza</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
